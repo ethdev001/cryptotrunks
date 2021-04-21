@@ -1,3 +1,8 @@
-import updateTokenBalance from './common.js';
+import { contract, wallet } from './common.js';
 
-window.onload = updateTokenBalance();
+async function updateTokenBalance() {
+  let tokens = await contract.methods.balanceOf(wallet).call();
+  document.querySelector('#token-count').innerHTML = tokens;
+}
+
+document.onload = updateTokenBalance();

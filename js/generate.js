@@ -1,4 +1,4 @@
-import { walletAddress } from './common.js';
+import { wallet } from './common.js';
 
 async function fetchCarbonStats() {
   let co2_per_wei = 0.0002874;
@@ -17,4 +17,4 @@ async function fetchCarbonStats() {
   document.querySelector('#carbon-years').innerHTML = absorbed_formatted.concat(" years");
 }
 
-window.onload = fetchCarbonStats()
+document.onload = fetchCarbonStats()

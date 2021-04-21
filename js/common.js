@@ -2,8 +2,8 @@ import { abi, address } from './contract.js';
 
 let web3 = new Web3(ethereum);
 let accounts = await web3.eth.getAccounts();
-let contract = new web3.eth.Contract(abi, address);
-export let walletAddress = ethereum.selectedAddress;
+export let contract = new web3.eth.Contract(abi, address);
+export let wallet = ethereum.selectedAddress;
 
 const isMetaMaskConnected = async () => {
     let accounts = await web3.eth.getAccounts();
@@ -19,17 +19,10 @@ export async function updateMetaMaskStatus() {
   });
 }
 
-export async function updateTokenBalance() {
-  let tokens = await contract.methods.balanceOf(walletAddress).call();
-  document.querySelector('#token-count').innerHTML = tokens;
-}
-
 export async function connectMetaMask() {
   await ethereum.enable();
-  let walletAddress = ethereum.selectedAddress;
-  console.log(walletAddress);
   updateMetaMaskStatus();
 }
 
-window.onload = updateMetaMaskStatus();
+document.onload = updateMetaMaskStatus();
 document.querySelector('#connect').addEventListener('click', connectMetaMask);
