@@ -14,7 +14,7 @@ export async function updateMetaMaskStatus() {
   await isMetaMaskConnected().then((connected) => {
     let button = document.querySelector('#connect-text');
     if (connected) {
-        button.innerHTML = "CONNECTED";
+        button.innerHTML = "METAMASK CONNECTED";
     }
   });
 }
