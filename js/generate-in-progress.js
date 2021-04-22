@@ -1,17 +1,21 @@
-import { wallet } from './common.js';
+import { wallet, contract } from './common.js';
 
-function getRandomInt() {
+var currentSeed;
+var tokenId;
+
+function regenerateRandomInt() {
     let min = 1;
     let max = 1e9;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    currentSeed = Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 async function generateTrunk() {
   document.querySelector('#generate-in-progress').style = "display:block";
   document.querySelector('#generate-done').style = "display:none";
 
-  let seed = getRandomInt();
-  let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${seed}`
+  regenerateRandomInt();
+
+  let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${currentSeed}`
   let result = await (await fetch(url)).json();
 
   var formatted = ""
@@ -24,5 +28,29 @@ async function generateTrunk() {
   document.querySelector('#generate-done').style = "display:block";
 }
 
-document.onload = generateTrunk()
+async function claimTrunk() {
+  tokenId = await contract.methods.mintTrunk(currentSeed).send(
+    { from: wallet, value: web3.utils.toWei("0.002") },
+    function(error, transactionHash) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(transactionHash);
+      }
+    }
+  );
+}
+
+function contractEventListener() {
+  contract.events.RemoteMintComplete({ filter: { tokenId: tokenId } }, function(error, event) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(event);
+    }
+  });
+}
+
+document.onload = generateTrunk();
 document.querySelector('#generate-reroll').addEventListener('click', generateTrunk);
+document.querySelector('#generate-confirm').addEventListener('click', claimTrunk);
