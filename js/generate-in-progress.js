@@ -1,4 +1,4 @@
-import { wallet, contract } from './common.js';
+import { web3, wallet, contract } from './common.js';
 
 var currentSeed;
 var tokenId;
@@ -29,24 +29,16 @@ async function generateTrunk() {
 }
 
 async function claimTrunk() {
-  tokenId = await contract.methods.mintTrunk(currentSeed).send(
-    { from: wallet, value: web3.utils.toWei("0.002") },
-    function(error, transactionHash) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(transactionHash);
-      }
-    }
-  );
-}
+  let result = await contract.methods.mintTrunk(currentSeed).send({ from: wallet, value: web3.utils.toWei("0.002") });
+  let tokenId = result.events.Transfer.returnValues.tokenId;
+  console.log(tokenId);
 
-function contractEventListener() {
-  contract.events.RemoteMintComplete({ filter: { tokenId: tokenId } }, function(error, event) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(event);
+  contract.events.RemoteMintFulfilled({}, function(error, result) {
+    if (!error) {
+      if (result.returnValues.tokenId == tokenId) {
+        let resultId = result.returnValues.resultId;
+        window.location.href = `individual-trunk-page.html?token=${resultId}`;
+      }
     }
   });
 }
