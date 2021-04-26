@@ -20,7 +20,7 @@ async function generateTrunk() {
 
   var formatted = ""
   result.elements.forEach(element => formatted = formatted.concat(`+ ${element}<br>`));
-  let info = `<strong>[Generative]</strong><br><br>${result.tree}<br><br>${result.backgrounds.join(", ")}<br><br>${formatted}<br>`
+  let info = `<strong>[Generative]</strong><br><br>${result.tree}<br><br>${result.backgrounds.join(", ")}<br><br>${formatted}<br>`;
   document.querySelector('#generate-info').innerHTML = info;
   document.querySelector('#generate-trunk-image').src = result.image;
 
