@@ -29,18 +29,31 @@ async function generateTrunk() {
 }
 
 async function claimTrunk() {
-  let result = await contract.methods.mintTrunk(currentSeed).send({ from: wallet, value: web3.utils.toWei("0.002") });
-  let tokenId = result.events.Transfer.returnValues.tokenId;
-  console.log(tokenId);
+  // Fetch fee (enforced by contract).
+  let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
+  let result = await (await fetch(url)).json();
+  let fee = web3.utils.toWei(String(result.result));
+  console.log("Fee: " + fee + " wei");
 
+  // Listener.
   contract.events.RemoteMintFulfilled({}, function(error, result) {
     if (!error) {
       if (result.returnValues.tokenId == tokenId) {
         let resultId = result.returnValues.resultId;
+        console.log("Minted: " + resultId);
         window.location.href = `individual-trunk-page.html?token=${resultId}`;
+      } else {
+        console.log("Result: " + result);
       }
+    } else {
+      console.log("Mint error: " + error.message);
     }
   });
+
+  // Minting.
+  let mint = await contract.methods.mintTrunk(currentSeed).send({ from: wallet, value: fee });
+  let tokenId = mint.events.Transfer.returnValues.tokenId;
+  console.log("Token ID: " + tokenId);
 }
 
 document.onload = generateTrunk();
