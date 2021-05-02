@@ -1,4 +1,4 @@
-import { web3, wallet, contract } from './common.js';
+import { web3, wallet, contract, formattedResult } from './common.js';
 
 var currentSeed;
 var tokenId;
@@ -18,10 +18,7 @@ async function generateTrunk() {
   let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${currentSeed}`
   let result = await (await fetch(url)).json();
 
-  var formatted = ""
-  result.elements.forEach(element => formatted = formatted.concat(`+ ${element}<br>`));
-  let info = `<strong>[Generative]</strong><br><br>${result.tree}<br><br>${result.backgrounds.join(", ")}<br><br>${formatted}<br>`;
-  document.querySelector('#generate-info').innerHTML = info;
+  document.querySelector('#generate-info').innerHTML = formattedResult(result);
   document.querySelector('#generate-trunk-image').src = result.image;
 
   document.querySelector('#generate-in-progress').style = "display:none";

@@ -24,5 +24,11 @@ export async function connectMetaMask() {
   updateMetaMaskStatus();
 }
 
+export function formattedResult(result) {
+  var formatted = ""
+  result.elements.forEach(element => formatted = formatted.concat(`+ ${element}<br>`));
+  return `<strong>[Generative]</strong><br><br>${result.tree}<br><br>${result.backgrounds.join(", ")}<br><br>${formatted}<br>`;
+}
+
 document.onload = updateMetaMaskStatus();
 document.querySelector('#connect').addEventListener('click', connectMetaMask);

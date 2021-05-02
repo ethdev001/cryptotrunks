@@ -1,4 +1,4 @@
-import { wallet } from './common.js';
+import { wallet, formattedResult } from './common.js';
 
 async function fetchTrunk() {
   var queryDict = {};
@@ -9,11 +9,8 @@ async function fetchTrunk() {
   let url = `https://service.cryptotrunks.co/token/${queryDict.token}.json`
   let result = await (await fetch(url)).json();
 
-  var formatted = ""
-  result.elements.forEach(element => formatted = formatted.concat(`+ ${element}<br>`));
-  let info = `<strong>[Generative]</strong><br><br>${result.tree}<br><br>${result.backgrounds.join(", ")}<br><br>${formatted}<br>`;
   document.querySelector('#individual-trunk-number').innerHTML = `TRUNK #${result.number}`;
-  document.querySelector('#individual-trunk-info').innerHTML = info;
+  document.querySelector('#individual-trunk-info').innerHTML = formattedResult(result);
   document.querySelector('#individual-trunk-image').src = result.image;
 }
 
