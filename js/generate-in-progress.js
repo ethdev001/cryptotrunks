@@ -2,6 +2,10 @@ import { web3, wallet, contract, formattedResult } from './common.js';
 
 var currentSeed;
 var tokenId;
+var isLoading = false;
+
+var generateButtonBackground;
+var generateButtonText;
 
 function regenerateRandomInt() {
     let min = 1;
@@ -26,6 +30,18 @@ async function generateTrunk() {
 }
 
 async function claimTrunk() {
+  // Loading
+  if (isLoading) {
+    return false;
+  }
+
+  // Disable button
+  generateButtonBackground = document.querySelector('#generate-confirm').style["background-image"];
+  generateButtonText = document.querySelector('#generate-confirm-text').innerHTML;
+  document.querySelector('#generate-confirm').style["background-image"] = "url('../images/button_mask.svg'), url('../images/button_background_disabled.svg')";
+  document.querySelector('#generate-confirm-text').innerHTML = "CONNECTING...";
+  isLoading = true;
+
   // Fetch fee (enforced by contract).
   let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
   let result = await (await fetch(url)).json();
@@ -48,7 +64,13 @@ async function claimTrunk() {
   });
 
   // Minting.
-  let mint = await contract.methods.mintTrunk(currentSeed).send({ from: wallet, value: fee });
+  let mint = await contract.methods.mintTrunk(currentSeed)
+    .send({ from: wallet, value: fee })
+    .catch(error => {
+      document.querySelector('#generate-confirm').style["background-image"] = generateButtonBackground;
+      document.querySelector('#generate-confirm-text').innerHTML = generateButtonText;
+      isLoading = false;
+    });
   let tokenId = mint.events.Transfer.returnValues.tokenId;
   console.log("Token ID: " + tokenId);
 }
