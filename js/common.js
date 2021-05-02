@@ -11,7 +11,7 @@ const isMetaMaskConnected = async () => {
 }
 
 export async function updateMetaMaskStatus() {
-  await isMetaMaskConnected().then((connected) => {
+  isMetaMaskConnected().then((connected) => {
     let button = document.querySelector('#connect-text');
     if (connected) {
         button.innerHTML = "METAMASK CONNECTED";
@@ -20,8 +20,11 @@ export async function updateMetaMaskStatus() {
 }
 
 export async function connectMetaMask() {
-  await ethereum.enable();
-  updateMetaMaskStatus();
+  if (await isMetaMaskConnected() == false) {
+    await ethereum.enable();
+    await updateMetaMaskStatus();
+    location.reload();
+  }
 }
 
 export function formattedResult(result) {

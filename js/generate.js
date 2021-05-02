@@ -1,4 +1,9 @@
-import { wallet } from './common.js';
+import { connectMetaMask, wallet } from './common.js';
+
+function start() {
+  connectMetaMask();
+  fetchCarbonStats();
+}
 
 async function fetchCarbonStats() {
   let co2_per_wei = 0.0002874;
@@ -37,4 +42,4 @@ async function fetchCarbonStats() {
   document.querySelector('#trunk-gas').innerHTML = gas_string;
 }
 
-document.onload = fetchCarbonStats()
+document.onload = start();
