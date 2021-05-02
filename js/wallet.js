@@ -1,4 +1,9 @@
-import { contract, wallet, formattedResult } from './common.js';
+import { connectMetaMask, contract, wallet, formattedResult } from './common.js';
+
+function start() {
+  connectMetaMask();
+  loadWalletTrunks();
+}
 
 async function loadWalletTrunks() {
   contract.methods.balanceOf(wallet).call()
@@ -23,4 +28,4 @@ async function loadWalletTrunks() {
   document.querySelector('#wallet-grid').innerHTML = grid;
 }
 
-document.onload = loadWalletTrunks();
+document.onload = start();
