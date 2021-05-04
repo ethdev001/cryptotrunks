@@ -1,11 +1,16 @@
 <!DOCTYPE html><!--  This site was created in Webflow. http://www.webflow.com  -->
-<!--  Last Published: Mon Apr 19 2021 20:26:34 GMT+0000 (Coordinated Universal Time)  -->
+<!--  Last Published: Mon May 03 2021 10:28:00 GMT+0000 (Coordinated Universal Time)  -->
 <html data-wf-page="607c75bcb7e076de12682c8f" data-wf-site="607c27ab0e3c5b7cf7c19fdd">
 <head>
   <meta charset="utf-8">
-  <title>Genesis</title>
-  <meta content="Genesis" property="og:title">
-  <meta content="Genesis" property="twitter:title">
+  <title>Genesis — CryptoTrunks</title>
+  <meta content="CryptoTrunks are generative NFTs that use an oracle to create a specialized NFT just for you.‍ We look at your transaction history to calculate just how much you’ve fucked up the environment." name="description">
+  <meta content="Genesis — CryptoTrunks" property="og:title">
+  <meta content="CryptoTrunks are generative NFTs that use an oracle to create a specialized NFT just for you.‍ We look at your transaction history to calculate just how much you’ve fucked up the environment." property="og:description">
+  <meta content="Genesis — CryptoTrunks" property="twitter:title">
+  <meta content="CryptoTrunks are generative NFTs that use an oracle to create a specialized NFT just for you.‍ We look at your transaction history to calculate just how much you’ve fucked up the environment." property="twitter:description">
+  <meta property="og:type" content="website">
+  <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -65,16 +70,28 @@
     <div class="pre_headline black">CLAIM YOUR UNIQUE TRUNK</div><img src="images/genesispage_headline.png" loading="lazy" sizes="(max-width: 479px) 90vw, (max-width: 767px) 75vw, (max-width: 991px) 55vw, 40vw" srcset="images/genesispage_headline-p-500.png 500w, images/genesispage_headline-p-800.png 800w, images/genesispage_headline.png 2038w" alt="Genesis Trunks" class="home_headline genesis">
     <div class="pre_headline green"><strong>LIMITED EDITION</strong></div>
   </div>
-  <div class="text_block left-aligned">
-    <div class="text"><strong>Genesis CryptoTrunks are limited to 1,500 pieces. This includes some unique 1/1 pieces!</strong><br>‍<br>They use assets that do not appear in generative trunks, so they really stand out. We use chainlink VRF to decide which trunk you get, so it&#x27;s truly random.<br></div>
-  </div>
-  <div class="text_block">
-    <div class="text">Right now <strong id="genesis-claimed">???</strong> genesis trunks have been claimed. There are only <strong id="genesis-remaining">???</strong> genesis trunks remaining!<br></div>
-  </div>
   <div class="text_block">
     <a href="genesis-in-progress.html" class="button_two w-inline-block">
       <div class="button_text small_text">CLAIM A GENESIS TRUNK</div>
     </a>
+    <div class="search_block genesis">
+      <div class="big_text">BUY MULTIPLE TRUNKS<br></div>
+      <div class="form_block w-form">
+        <form id="email-form" name="email-form" data-name="Email Form" class="form"><input type="text" class="form_text genesis w-input" maxlength="256" name="name" data-name="Name" placeholder="20" id="name"><input type="submit" value="GO!" data-wait="Please wait..." class="form_submit w-button"></form>
+        <div class="success-message w-form-done">
+          <div>You&#x27;ll be redirected shortly.</div>
+        </div>
+        <div class="error-message w-form-fail">
+          <div>Error</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text_block left-aligned">
+    <div class="text"><strong>Genesis CryptoTrunks are limited to 1500 pieces. This includes some unique 1/1 pieces!</strong><br>‍<br>They use assets that do not appear in generative trunks, so they really stand out.We use chainlink VRF to decide which trunk you get, so it&#x27;s truly random.<br></div>
+  </div>
+  <div class="text_block">
+    <div class="text" id="genesis-stats">Loading genesis stats...<br></div>
   </div>
   <div class="center_image_block generate"><img src="images/generate_hearts.png" loading="lazy" alt="Pixel art image of two red hearts."></div>
   <div class="header_block genesis"></div>
