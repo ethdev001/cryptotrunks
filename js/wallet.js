@@ -5,12 +5,10 @@ function start() {
   loadWalletTrunks();
 }
 
-
-
 async function loadWalletTrunks() {
   var tokens = 0;
 
-  contract.methods.balanceOf(wallet).call()
+  await contract.methods.balanceOf(wallet).call()
   .then(function(_tokens) {
     tokens = _tokens;
     let trunks = (tokens == 1 ? "trunk" : "trunks");
