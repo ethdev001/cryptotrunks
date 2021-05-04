@@ -136,10 +136,10 @@ a {
   display: -ms-flexbox;
   display: flex;
   width: 100vw;
-  height: 33vw;
+  height: 16.5vw;
   margin-right: auto;
   margin-left: auto;
-  padding-bottom: 40px;
+  padding-bottom: 0px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -180,7 +180,7 @@ a {
 }
 
 .home_headline {
-  width: 460px;
+  width: 450px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -199,6 +199,10 @@ a {
   margin-bottom: 50px;
 }
 
+.home_headline.generate.one {
+  margin-bottom: 0px;
+}
+
 .home_headline.genesis {
   width: 500px;
   margin-bottom: 20px;
@@ -207,6 +211,7 @@ a {
 .text_block {
   width: 40%;
   max-width: 600px;
+  min-width: 450px;
   margin: 50px auto;
   text-align: center;
 }
@@ -214,6 +219,12 @@ a {
 .text_block.info {
   width: 20%;
   text-align: left;
+}
+
+.text_block.info.reroll {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 0px;
 }
 
 .text_block.wallet_info {
@@ -226,9 +237,29 @@ a {
   width: 20%;
 }
 
+.text_block.tight.one {
+  margin-top: 20px;
+}
+
 .text_block.left-aligned {
   width: 35%;
   text-align: left;
+}
+
+.text_block.one {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.text_block.two {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.text_block.reroll {
+  width: 100%;
+  margin-top: 0px;
+  margin-left: 0px;
 }
 
 .text {
@@ -246,6 +277,24 @@ a {
 
 .text.left-aligned {
   text-align: left;
+}
+
+.text.thin {
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.text.red {
+  color: #d00208;
+}
+
+.text.red.reroll {
+  text-align: left;
+}
+
+.text.white {
+  color: #fff;
 }
 
 .large {
@@ -428,10 +477,6 @@ a {
   transition: opacity 200ms ease;
 }
 
-.gallery_item_image:hover {
-  opacity: 0;
-}
-
 .more_block {
   display: block;
   width: 40%;
@@ -439,7 +484,7 @@ a {
   margin: 30px auto 50px;
   -webkit-transition: opacity 200ms ease;
   transition: opacity 200ms ease;
-  color: #1b1c17;
+  color: #dd1d32;
   text-align: center;
   text-decoration: none;
 }
@@ -455,6 +500,24 @@ a {
 .more_block.discord {
   margin-top: -20px;
   margin-bottom: 80px;
+}
+
+.more_block.discord.two {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.more_block.discord.one {
+  color: #000;
+}
+
+.more_block.one {
+  color: #000;
+}
+
+.more_block.three {
+  margin-top: 60px;
+  color: #000;
 }
 
 .home_grid {
@@ -491,6 +554,10 @@ a {
   -ms-flex-align: center;
   align-items: center;
   text-align: center;
+}
+
+.search_block.genesis {
+  width: 100%;
 }
 
 .big_text {
@@ -530,6 +597,10 @@ a {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.form_text.genesis {
+  width: 55px;
 }
 
 .form_submit {
@@ -602,6 +673,10 @@ a {
 
 .previous:hover {
   opacity: 0.5;
+}
+
+.previous.reroll {
+  width: 400px;
 }
 
 .next {
@@ -948,6 +1023,56 @@ a {
   color: #83a127;
 }
 
+.div-block-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 590px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.modal {
+  position: fixed;
+  top: -50px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 110vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.image-2 {
+  width: 300px;
+}
+
 @media screen and (max-width: 991px) {
   .nav_button {
     width: 25%;
@@ -1236,6 +1361,7 @@ a {
 
   .text_block {
     width: 75%;
+    min-width: 0px;
   }
 
   .text_block.info {
