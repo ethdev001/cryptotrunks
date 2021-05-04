@@ -8,7 +8,7 @@ function start() {
 async function loadWalletTrunks() {
   contract.methods.balanceOf(wallet).call()
   .then(function(tokens) {
-    document.querySelector('#token-count').innerHTML = tokens;
+    document.querySelector('#token-count').innerHTML = `You own <strong id="token-count">${tokens}</strong> trunks.<br>`;
   });
 
   let url = `https://service.cryptotrunks.co/wallet.json?address=${wallet}`
