@@ -9,7 +9,10 @@ async function fetchTrunk() {
   let url = `https://service.cryptotrunks.co/token/${queryDict.token}.json`
   let result = await (await fetch(url)).json();
 
-  if (result.error == "") {
+  console.log(result);
+  document.result = result;
+
+  if (result.error == undefined) {
     document.querySelector('#individual-trunk-number').innerHTML = `TRUNK #${result.number}`;
     document.querySelector('#individual-trunk-info').innerHTML = formattedResult(result);
     document.querySelector('#individual-trunk-image').src = result.image;

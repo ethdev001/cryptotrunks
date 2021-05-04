@@ -46,6 +46,12 @@
 </style>
 </head>
 <body class="body">
+  <div class="modal" style="display:none" id="loading-modal">
+    <img src="images/Website-Loading-Animation.gif" loading="lazy" alt="" class="image-2">
+    <div class="more_block three w-inline-block">
+      <div class="text white"><strong id="loading-text">CONNECTING...</strong><br></div>
+    </div>
+  </div>
   <div class="nav w-clearfix">
     <a href="index.html" class="logo_block w-inline-block"><img src="images/logo.svg" loading="lazy" alt="CryptoTrunks Logo"></a>
     <a href="#" class="button w-inline-block" id="connect">
@@ -72,11 +78,11 @@
       <div class="text big_text_two">Generating ...<strong></strong><br></div>
       <div class="text">This shouldn&#x27;t take long.<br></div>
     </div>
-    <div class="center_image_block generate"><img src="images/generate_image.png" loading="lazy" alt="Pixel art image of a man with fire in his hand."></div>
+    <div class="center_image_block generate"><img src="images/Website-Fire-Animation.gif" loading="lazy" alt="Pixel art image of a man with fire in his hand."></div>
   </div>
   <div id="generate-done" style="display:none" class="generated">
     <a href="#" class="more_block discord two w-inline-block"></a>
-    <div class="trunk_item"><img id="generate-trunk-image" src="#" loading="lazy" alt="Image of a pixel art tree on a forested background." class="trunk_image">
+    <div class="trunk_item"><img id="generate-trunk-image" src="images/trunk_missing.png" loading="lazy" alt="Image of a pixel art tree on a forested background." class="trunk_image">
       <div class="div-block-4">
         <a href="#" class="previous reroll w-inline-block" id="generate-reroll">
           <div class="text red reroll"><strong>Reroll Trunk<br></strong>(5 second cooldown)<br></div>
@@ -91,7 +97,6 @@
         </div>
       </div>
     </div>
-    <div data-w-id="cbdcc08b-85f5-984a-47d2-bd9814232a3c" class="trunk_item hidden"><img src="images/home_image_02.png" loading="lazy" alt="Image of a pixel art tree on a forested background." class="trunk_image"></div>
   </div>
   <div class="footer">
     <a href="#" class="social_link w-inline-block"><img src="images/twitter_logo.svg" loading="lazy" alt="Twitter Logo"></a>

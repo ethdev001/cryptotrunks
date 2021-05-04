@@ -1067,6 +1067,7 @@ a {
   -ms-flex-align: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.9);
+  z-index: 9001;
 }
 
 .image-2 {

@@ -40,13 +40,14 @@ async function claimTrunk() {
   generateButtonText = document.querySelector('#generate-confirm-text').innerHTML;
   document.querySelector('#generate-confirm').style["background-image"] = "url('../images/button_mask.svg'), url('../images/button_background_disabled.svg')";
   document.querySelector('#generate-confirm-text').innerHTML = "CONNECTING...";
+  document.querySelector('#loading-text').innerHTML = "CONNECTING...";
+  document.querySelector('#loading-modal').style = "display:flex";
   isLoading = true;
 
   // Fetch fee (enforced by contract).
   let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
   let result = await (await fetch(url)).json();
   let fee = web3.utils.toWei(String(result.result));
-  console.log("Fee: " + fee + " wei");
 
   // Listener.
   contract.events.RemoteMintFulfilled({}, function(error, result) {
@@ -56,11 +57,16 @@ async function claimTrunk() {
         console.log("Minted: " + resultId);
         window.location.href = `individual-trunk-page.html?token=${resultId}`;
       } else {
+        document.result = result;
         console.log("Result: " + result);
       }
     } else {
       console.log("Mint error: " + error.message);
     }
+  });
+
+  contract.events.Transfer({}, function(error, results) {
+    document.querySelector('#loading-text').innerHTML = "MINTING YOUR TRUNK...";
   });
 
   // Minting.
@@ -69,10 +75,12 @@ async function claimTrunk() {
     .catch(error => {
       document.querySelector('#generate-confirm').style["background-image"] = generateButtonBackground;
       document.querySelector('#generate-confirm-text').innerHTML = generateButtonText;
+      document.querySelector('#loading-modal').style = "display:none";
       isLoading = false;
     });
-  let tokenId = mint.events.Transfer.returnValues.tokenId;
-  console.log("Token ID: " + tokenId);
+
+  // Store for RemoteMintFulfilled to read back.
+  tokenId = mint.events.Transfer.returnValues.tokenId;
 }
 
 document.onload = generateTrunk();
