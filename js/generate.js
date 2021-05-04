@@ -12,16 +12,11 @@ async function fetchCarbonStats() {
   let result = await (await fetch(url)).json();
   let gas = result["gas"];
 
-  document.querySelector('#carbon-transactions').innerHTML = result["transactions"].toLocaleString();
-  document.querySelector('#carbon-gas').innerHTML = gas.toLocaleString();
-
   let co2 = gas * co2_per_wei;
   let co2_formatted = Math.round(co2).toLocaleString();
-  document.querySelector('#carbon-co2').innerHTML = co2_formatted.concat(" kg of CO₂ emissions.");
 
   let absorbed = Math.round(co2 / co2_absorbed_per_year);
   let absorbed_formatted = absorbed.toLocaleString();
-  document.querySelector('#carbon-years').innerHTML = absorbed_formatted.concat(" years");
 
   var gas_string = "You’ve spent little to no gas. Good on you!";
   var tree = "Your trunk will be a <strong>sapling</strong>";
@@ -38,8 +33,23 @@ async function fetchCarbonStats() {
     gas_string = "You’ve spent an outstanding amount of gas. You must really hate bears.";
     tree = "Your trunk will be <strong>ancient</strong>";
   }
-  document.querySelector('#trunk-age').innerHTML = tree;
-  document.querySelector('#trunk-gas').innerHTML = gas_string;
+
+  let carbon_html = `
+    <div class="text_block one">
+      <div class="text big_text_two">This address initiated <strong> <br>${result["transactions"].toLocaleString()}</strong> transactions consuming <strong>${gas.toLocaleString()}</strong> gas.<br><br>In total, this address is responsible for<br><strong> ${co2_formatted} kg of CO₂ emissions.</strong><br></div>
+    </div>
+    <div class="text_block tight one">
+      <div class="text">It would take an adult tree <strong>${absorbed_formatted} years</strong> to absorb your emissions. Nice one.<br></div>
+    </div>
+    <div class="text_block two">
+      <div class="text">${gas_string}<br></div>
+    </div>
+    <div class="text_block">
+      <div class="text big_text_two">${tree}<br></div>
+    </div>
+  `
+
+  document.querySelector('#carbon-info').innerHTML = carbon_html;
 }
 
 document.onload = start();
