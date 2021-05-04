@@ -88,6 +88,17 @@ async function mintMultipleGenesisTrunks() {
 async function readTokenBalance() {
   let balance = await contract.methods.balanceOf(wallet).call();
   console.log("Token balance: " + balance);
+  return balance;
+}
+
+async function readTokens() {
+  let balance = await readTokenBalance();
+  for (let i = 0; i < balance; i++) {
+    let token = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
+    let uri = await contract.methods.tokenURI(token).call();
+    console.log("Token: " + token);
+    console.log("Token URI: " + uri);
+  }
 }
 
 function start() {
@@ -117,3 +128,4 @@ document.querySelector('#fetchGenerativeFee').addEventListener('click', fetchGen
 
 // Utils
 document.querySelector('#readTokenBalance').addEventListener('click', readTokenBalance);
+document.querySelector('#readTokens').addEventListener('click', readTokens);

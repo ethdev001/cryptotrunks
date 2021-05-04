@@ -28,9 +28,13 @@ export async function connectMetaMask() {
 }
 
 export function formattedResult(result) {
-  var formatted = ""
-  result.elements.forEach(element => formatted = formatted.concat(`+ ${element}<br>`));
-  return `<strong>[Generative]</strong><br><br>${result.tree}<br><br>${result.backgrounds.join(", ")}<br><br>${formatted}<br>`;
+  if (result.number <= 1500) {
+    return '<strong class="green">[Genesis]</strong>';
+  } else {
+    var formatted = ""
+    result.elements.forEach(element => formatted = formatted.concat(`+ ${element}<br>`));
+    return `<strong>[Generative]</strong><br><br>${result.tree}<br><br>${result.backgrounds.join(", ")}<br><br>${formatted}<br>`;
+  }
 }
 
 document.onload = updateMetaMaskStatus();
