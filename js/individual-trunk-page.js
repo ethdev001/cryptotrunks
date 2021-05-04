@@ -6,7 +6,7 @@ async function fetchTrunk() {
     queryDict[item.split("=")[0]] = item.split("=")[1]
   });
 
-  let url = `https://service.cryptotrunks.co/token/${queryDict.token}.json`
+  let url = `https://service.cryptotrunks.co/token/${queryDict.token}`
   let result = await (await fetch(url)).json();
 
   console.log(result);
