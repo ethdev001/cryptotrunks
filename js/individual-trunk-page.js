@@ -9,9 +9,13 @@ async function fetchTrunk() {
   let url = `https://service.cryptotrunks.co/token/${queryDict.token}.json`
   let result = await (await fetch(url)).json();
 
-  document.querySelector('#individual-trunk-number').innerHTML = `TRUNK #${result.number}`;
-  document.querySelector('#individual-trunk-info').innerHTML = formattedResult(result);
-  document.querySelector('#individual-trunk-image').src = result.image;
+  if (result.error == "") {
+    document.querySelector('#individual-trunk-number').innerHTML = `TRUNK #${result.number}`;
+    document.querySelector('#individual-trunk-info').innerHTML = formattedResult(result);
+    document.querySelector('#individual-trunk-image').src = result.image;
+  } else {
+    document.querySelector('#individual-trunk-number').innerHTML = `TRUNK NOT FOUND`;
+  }
 }
 
 document.onload = fetchTrunk()
