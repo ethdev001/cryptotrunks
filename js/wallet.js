@@ -15,9 +15,7 @@ async function loadWalletTrunks() {
     document.querySelector('#token-count').innerHTML = `You own <strong id="token-count">${tokens}</strong> ${trunks}.<br>`;
   });
 
-  // let url = `https://service.cryptotrunks.co/wallet.json?address=${wallet}`
-  // let result = await (await fetch(url)).json();
-
+  // Iterate tokens from contract and render.
   if (tokens == 0) {
     document.querySelector('#wallet-grid').innerHTML = `<div class="text_block">
       <a href="generate-in-progress.html" class="button_two w-inline-block">
