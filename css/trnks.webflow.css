@@ -918,7 +918,7 @@ a {
   align-items: center;
   background-image: url('../images/button_mask_right.svg'), url('../images/button_mask_left.svg'), url('../images/progressbar_marker.png'), url('../images/progress_bar.svg');
   background-position: 100% 100%, 0% 100%, 0px 60%, 50% 50%;
-  background-size: contain, contain, 80% 90%, contain;
+  background-size: contain, contain, 0% 90%, contain;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
 }
 
