@@ -1,7 +1,12 @@
 import { connectMetaMask, wallet } from './common.js';
 
-function start() {
-  connectMetaMask();
+async function start() {
+  try {
+    await connectMetaMask();
+  } catch (error) {
+    window.location.href = "index.html";
+  }
+
   fetchCarbonStats();
 }
 

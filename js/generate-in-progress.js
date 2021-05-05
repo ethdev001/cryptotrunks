@@ -1,4 +1,4 @@
-import { web3, wallet, contract, formattedResult } from './common.js';
+import { web3, wallet, contract, formattedResult, connectMetaMask } from './common.js';
 
 var currentSeed;
 var tokenId;
@@ -14,6 +14,12 @@ function regenerateRandomInt() {
 }
 
 async function generateTrunk() {
+  try {
+    await connectMetaMask();
+  } catch (error) {
+    window.location.href = "generate.html";
+  }
+
   document.querySelector('#generate-in-progress').style = "display:block";
   document.querySelector('#generate-done').style = "display:none";
 
