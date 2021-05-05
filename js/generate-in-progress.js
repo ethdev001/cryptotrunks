@@ -58,35 +58,27 @@ async function claimTrunk() {
   // Listener.
   contract.events.RemoteMintFulfilled({}, function(error, result) {
     if (!error) {
-      if (result.returnValues.tokenId == tokenId) {
-        let resultId = result.returnValues.resultId;
-        console.log("Minted: " + resultId);
-        window.location.href = `individual-trunk-page.html?token=${resultId}`;
-      } else {
-        document.result = result;
-        console.log("Result: " + result);
-      }
+      let resultId = result.returnValues.resultId;
+      console.log("Minted: " + resultId);
+      window.location.href = `individual-trunk-page.html?token=${resultId}`;
     } else {
       console.log("Mint error: " + error.message);
     }
   });
 
-  contract.events.Transfer({}, function(error, results) {
-    document.querySelector('#loading-text').innerHTML = "MINTING YOUR TRUNK...";
-  });
-
   // Minting.
   let mint = await contract.methods.mintTrunk(currentSeed)
     .send({ from: wallet, value: fee })
+    .then(function(result) {
+      let trunk = result.events.Transfer.returnValues.tokenId;
+      document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
+    })
     .catch(error => {
       document.querySelector('#generate-confirm').style["background-image"] = generateButtonBackground;
       document.querySelector('#generate-confirm-text').innerHTML = generateButtonText;
       document.querySelector('#loading-modal').style = "display:none";
       isLoading = false;
     });
-
-  // Store for RemoteMintFulfilled to read back.
-  tokenId = mint.events.Transfer.returnValues.tokenId;
 }
 
 document.onload = generateTrunk();
