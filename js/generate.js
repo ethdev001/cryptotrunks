@@ -44,7 +44,7 @@ async function fetchCarbonStats() {
       <div class="text big_text_two">This address initiated <strong> <br>${result["transactions"].toLocaleString()}</strong> transactions consuming <strong>${gas.toLocaleString()}</strong> gas.<br><br>In total, this address is responsible for<br><strong> ${co2_formatted} kg of CO₂ emissions.</strong><br></div>
     </div>
     <div class="text_block tight one">
-      <div class="text">It would take an adult tree <strong>${absorbed_formatted} years</strong> to absorb your emissions. Nice one.<br></div>
+      <div class="text">It would take an adult tree  <strong>${absorbed_formatted} years</strong> to absorb your emissions. Nice one.<br></div>
     </div>
     <div class="text_block two">
       <div class="text">${gas_string}<br></div>
