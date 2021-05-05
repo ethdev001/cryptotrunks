@@ -10,4 +10,14 @@ async function updateTotals() {
   document.querySelector('#genesis-stats').innerHTML = stats;
 }
 
+async function ape() {
+  let number = document.querySelector('#genesis-ape-number').value;
+  if (number >= 1 && number <= 20) {
+    window.location.href = `genesis-in-progress.html?buy=${number}`;
+  } else {
+    document.querySelector('#genesis-ape-number').value = "";
+  }
+}
+
 document.onload = updateTotals();
+document.querySelector('#genesis-ape').addEventListener('click', ape);

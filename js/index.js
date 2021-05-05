@@ -16,4 +16,14 @@ async function updateProgress() {
   document.querySelector('#progress-bar-genesis').style = `background-size: contain, contain, ${progress}% 90%, contain;`;
 }
 
+async function ape() {
+  let number = document.querySelector('#genesis-ape-number').value;
+  if (number >= 1 && number <= 20) {
+    window.location.href = `genesis-in-progress.html?buy=${number}`;
+  } else {
+    document.querySelector('#genesis-ape-number').value = "";
+  }
+}
+
 document.onload = updateProgress();
+document.querySelector('#genesis-ape').addEventListener('click', ape);
