@@ -11,6 +11,18 @@ a {
   text-decoration: none;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .body {
   margin-right: auto;
   margin-left: auto;
@@ -478,6 +490,10 @@ a {
   transition: opacity 200ms ease;
 }
 
+.gallery_item_image:hover {
+  opacity: 0;
+}
+
 .more_block {
   display: block;
   width: 40%;
@@ -601,7 +617,7 @@ a {
 }
 
 .form_text.genesis {
-  width: 75px;
+  width: 58px;
 }
 
 .form_submit {
