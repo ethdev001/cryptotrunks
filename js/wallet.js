@@ -24,7 +24,7 @@ async function loadWalletTrunks() {
     </div>`;
   } else {
     grid = grid.concat('<div class="wallet_grid">');
-    for (let i = 0; i < Math.min(tokens, 18); i++) {
+    for (let i = 0; i < Math.min(tokens, 180); i++) {
       let token = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
       let uri = await contract.methods.tokenURI(token).call();
       let metadata = await (await fetch(uri)).json();
