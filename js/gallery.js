@@ -9,15 +9,19 @@ async function updateTokenSupply() {
     queryDict[item.split("=")[0]] = item.split("=")[1]
   });
 
-  let generative = parseInt(await contract.methods.getGenerativeMinted().call());
-  let genesis = parseInt(await contract.methods.getGenesisMinted().call());
-  let minted = generative + genesis;
-  let trunks = (minted == 1 ? "trunk has" : "trunks have");
+  try {
+    let generative = parseInt(await contract.methods.getGenerativeMinted().call());
+    let genesis = parseInt(await contract.methods.getGenesisMinted().call());
+    let minted = generative + genesis;
+    let trunks = (minted == 1 ? "trunk has" : "trunks have");
 
-  document.querySelector('#gallery-stats').innerHTML = `
-    Right now <strong>${minted.toLocaleString()}</strong> ${trunks} been claimed.<br>
-    There are only <strong>${(21000 - minted).toLocaleString()}</strong> trunks remaining!<br>
-  `
+    document.querySelector('#gallery-stats').innerHTML = `
+      Right now <strong>${minted.toLocaleString()}</strong> ${trunks} been claimed.<br>
+      There are only <strong>${(21000 - minted).toLocaleString()}</strong> trunks remaining!<br>`
+  } catch (error) {
+    console.log(error);
+    document.querySelector('#gallery-stats').innerHTML = "";
+  }
 
   getMoreTrunks();
 }
@@ -49,5 +53,15 @@ async function viewMore() {
   await getMoreTrunks();
 }
 
+async function getTrunk() {
+  let number = document.querySelector('#gallery-trunk-number').value;
+  if (number >= 1 && number <= 21000) {
+    window.location.href = `individual-trunk-page.html?token=${number}`;
+  } else {
+    document.querySelector('#gallery-trunk-number').value = "";
+  }
+}
+
 document.onload = updateTokenSupply();
 document.querySelector('#gallery-view-more').addEventListener('click', viewMore);
+document.querySelector('#gallery-form').addEventListener('click', getTrunk);
