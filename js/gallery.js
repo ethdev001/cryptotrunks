@@ -64,4 +64,4 @@ async function getTrunk() {
 
 document.onload = updateTokenSupply();
 document.querySelector('#gallery-view-more').addEventListener('click', viewMore);
-document.querySelector('#gallery-form').addEventListener('click', getTrunk);
+document.querySelector('#gallery-submit').addEventListener('click', getTrunk);
