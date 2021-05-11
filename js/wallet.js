@@ -8,12 +8,16 @@ function start() {
 async function loadWalletTrunks() {
   var tokens = 0;
 
-  await contract.methods.balanceOf(wallet).call()
-  .then(function(_tokens) {
-    tokens = _tokens;
-    let trunks = (tokens == 1 ? "trunk" : "trunks");
-    document.querySelector('#token-count').innerHTML = `You own <strong id="token-count">${tokens}</strong> ${trunks}.<br>`;
-  });
+  try {
+    await contract.methods.balanceOf(wallet).call()
+    .then(function(_tokens) {
+      tokens = _tokens;
+      let trunks = (tokens == 1 ? "trunk" : "trunks");
+      document.querySelector('#token-count').innerHTML = `You own <strong id="token-count">${tokens}</strong> ${trunks}.<br>`;
+    });
+  } catch (error) {
+    document.querySelector('#token-count').innerHTML = "Couldn’t load trunks.<br>";
+  }
 
   var grid = "";
   if (tokens == 0) {
