@@ -3,14 +3,46 @@ import { web3, wallet, contract, formattedResult, connectMetaMask } from './comm
 var currentSeed;
 var tokenId;
 var isLoading = false;
+var isBasic = false;
 
 var generateButtonBackground;
 var generateButtonText;
 
+function randomInt() {
+  let min = 1;
+  let max = 1e9;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function regenerateRandomInt() {
-    let min = 1;
-    let max = 1e9;
-    currentSeed = Math.floor(Math.random() * (max - min + 1)) + min;
+    currentSeed = randomInt();
+}
+
+async function getBaseFeeTier() {
+  let count = await contract.methods.balanceOf(wallet).call()
+
+  // Base case (first mint).
+  if (count == 0) {
+    return "0.002";
+  }
+
+  // Multiplier.
+  var multiplier = 1;
+  if (count <= 5) {
+    multiplier = 1
+  } else if (count <= 20) {
+    multiplier = 1.5
+  } else if (count <= 50) {
+    multiplier = 2
+  } else if (count <= 100) {
+    multiplier = 2.5
+  } else {
+    multiplier = 3
+  }
+
+  // Calculation
+  let fee = 0.05 * multiplier
+  return fee.toString();
 }
 
 async function generateTrunk() {
@@ -27,6 +59,8 @@ async function generateTrunk() {
 
   let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${currentSeed}`
   let result = await (await fetch(url)).json();
+
+  isBasic = (result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
 
   document.querySelector('#generate-info').innerHTML = formattedResult(result);
   document.querySelector('#generate-trunk-image').src = result.image;
@@ -51,9 +85,17 @@ async function claimTrunk() {
   isLoading = true;
 
   // Fetch fee (enforced by contract).
-  let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
-  let result = await (await fetch(url)).json();
-  let fee = web3.utils.toWei(String(result.result));
+  var fee = 0;
+  if (isBasic) {
+    let baseFee = await getBaseFeeTier();
+    fee = web3.utils.toWei(baseFee);
+  } else {
+    let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
+    let result = await (await fetch(url)).json();
+    fee = web3.utils.toWei(String(result.result));
+  }
+
+  console.log(fee);
 
   // Listener.
   contract.events.RemoteMintFulfilled({}, function(error, result) {
@@ -67,7 +109,7 @@ async function claimTrunk() {
   });
 
   // Minting.
-  let mint = await contract.methods.mintTrunk(currentSeed)
+  let mint = await contract.methods.mintTrunk(currentSeed, isBasic)
     .send({ from: wallet, value: fee })
     .then(function(result) {
       let trunk = result.events.Transfer.returnValues.tokenId;
