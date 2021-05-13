@@ -2,8 +2,11 @@ import { web3, wallet, contract, formattedResult, connectMetaMask } from './comm
 
 var currentSeed;
 var tokenId;
+var baseFee;
+
 var isLoading = false;
 var isBasic = false;
+var isPaused = false;
 
 var generateButtonBackground;
 var generateButtonText;
@@ -67,6 +70,25 @@ async function generateTrunk() {
 
   document.querySelector('#generate-in-progress').style = "display:none";
   document.querySelector('#generate-done').style = "display:block";
+
+  baseFee = await getBaseFeeTier();
+  isPaused = (await contract.methods.paused().call()) && (baseFee == "0.002");
+  if (isPaused) {
+    document.querySelector('#generate-paused').style = "display:block";
+    disableButton("PAUSED");
+  }
+}
+
+function disableButton(title) {
+  generateButtonBackground = document.querySelector('#generate-confirm').style["background-image"];
+  generateButtonText = document.querySelector('#generate-confirm-text').innerHTML;
+  document.querySelector('#generate-confirm').style["background-image"] = "url('../images/button_mask.svg'), url('../images/button_background_disabled.svg')";
+  document.querySelector('#generate-confirm-text').innerHTML = title;
+}
+
+function enableButton() {
+  document.querySelector('#generate-confirm').style["background-image"] = generateButtonBackground;
+  document.querySelector('#generate-confirm-text').innerHTML = generateButtonText;
 }
 
 async function claimTrunk() {
@@ -75,11 +97,13 @@ async function claimTrunk() {
     return false;
   }
 
+  // Paused.
+  if (isPaused) {
+    return false;
+  }
+
   // Disable button
-  generateButtonBackground = document.querySelector('#generate-confirm').style["background-image"];
-  generateButtonText = document.querySelector('#generate-confirm-text').innerHTML;
-  document.querySelector('#generate-confirm').style["background-image"] = "url('../images/button_mask.svg'), url('../images/button_background_disabled.svg')";
-  document.querySelector('#generate-confirm-text').innerHTML = "CONNECTING...";
+  disableButton("CONNECTING...");
   document.querySelector('#loading-text').innerHTML = "CONNECTING...";
   document.querySelector('#loading-modal').style = "display:flex";
   isLoading = true;
@@ -87,15 +111,12 @@ async function claimTrunk() {
   // Fetch fee (enforced by contract).
   var fee = 0;
   if (isBasic) {
-    let baseFee = await getBaseFeeTier();
     fee = web3.utils.toWei(baseFee);
   } else {
     let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
     let result = await (await fetch(url)).json();
     fee = web3.utils.toWei(String(result.result));
   }
-
-  console.log(fee);
 
   // Listener.
   contract.events.RemoteMintFulfilled({}, function(error, result) {
@@ -116,8 +137,7 @@ async function claimTrunk() {
       document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
     })
     .catch(error => {
-      document.querySelector('#generate-confirm').style["background-image"] = generateButtonBackground;
-      document.querySelector('#generate-confirm-text').innerHTML = generateButtonText;
+      enableButton();
       document.querySelector('#loading-modal').style = "display:none";
       isLoading = false;
     });

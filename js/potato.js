@@ -101,6 +101,19 @@ async function readTokens() {
   }
 }
 
+async function getPauseStatus() {
+  let status = await contract.methods.paused().call();
+  console.log("Paused: " + status);
+}
+
+async function pause() {
+  await contract.methods.pause().send({ from: wallet });
+}
+
+async function unpause() {
+  await contract.methods.unpause().send({ from: wallet });
+}
+
 function start() {
   document.querySelector('#etherscan').href = `https://kovan.etherscan.io/address/${address}`
 }
@@ -113,6 +126,11 @@ document.querySelector('#connect').addEventListener('click', connect);
 // Withdraw
 document.querySelector('#withdraw').addEventListener('click', withdraw);
 document.querySelector('#withdrawLink').addEventListener('click', withdrawLink);
+
+// Pausing.
+document.querySelector('#pause').addEventListener('click', pause);
+document.querySelector('#unpause').addEventListener('click', unpause);
+document.querySelector('#getPauseStatus').addEventListener('click', getPauseStatus);
 
 // Genesis
 document.querySelector('#fetchGenesisSeedFromVRF').addEventListener('click', fetchGenesisSeedFromVRF);
