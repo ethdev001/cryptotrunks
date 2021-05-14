@@ -1,7 +1,7 @@
 import { contract, wallet } from './common.js';
 
 var grid = "";
-var offset = 0;
+var offset = 1500;
 
 async function updateTokenSupply() {
   var queryDict = {};
