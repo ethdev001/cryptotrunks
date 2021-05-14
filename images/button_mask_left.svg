@@ -1,16 +1,1 @@
-<svg width="10" height="49" viewBox="0 0 10 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect y="45" width="2" height="2" fill="#F8EDE7"/>
-<rect y="47" width="2" height="2" fill="#F8EDE7"/>
-<rect x="2" y="43" width="2" height="2" fill="#F8EDE7"/>
-<rect y="43" width="2" height="2" fill="#F8EDE7"/>
-<rect y="41" width="2" height="2" fill="#F8EDE7"/>
-<rect y="39" width="2" height="2" fill="#F8EDE7"/>
-<rect width="2" height="2" fill="#F8EDE7"/>
-<rect x="2" y="45" width="2" height="2" fill="#F8EDE7"/>
-<rect x="2" y="47" width="2" height="2" fill="#F8EDE7"/>
-<rect x="4" y="45" width="2" height="2" fill="#F8EDE7"/>
-<rect x="4" y="47" width="2" height="2" fill="#F8EDE7"/>
-<rect x="6" y="45" width="2" height="2" fill="#F8EDE7"/>
-<rect x="6" y="47" width="2" height="2" fill="#F8EDE7"/>
-<rect x="8" y="47" width="2" height="2" fill="#F8EDE7"/>
-</svg>
+<svg fill="none" height="49" viewBox="0 0 10 49" width="10" xmlns="http://www.w3.org/2000/svg"><g fill="#f8ede7"><path d="m0 45h2v2h-2z"/><path d="m0 47h2v2h-2z"/><path d="m2 43h2v2h-2z"/><path d="m0 43h2v2h-2z"/><path d="m0 41h2v2h-2z"/><path d="m0 39h2v2h-2z"/><path d="m0 0h2v2h-2z"/><path d="m2 45h2v2h-2z"/><path d="m2 47h2v2h-2z"/><path d="m4 45h2v2h-2z"/><path d="m4 47h2v2h-2z"/><path d="m6 45h2v2h-2z"/><path d="m6 47h2v2h-2z"/><path d="m8 47h2v2h-2z"/></g></svg>
