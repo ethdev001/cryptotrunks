@@ -1,7 +1,7 @@
 import { contract, wallet } from './common.js';
 
 var grid = "";
-var offset = 1500;
+var offset = 15;
 
 async function updateTokenSupply() {
   var queryDict = {};
@@ -17,7 +17,7 @@ async function updateTokenSupply() {
 
     document.querySelector('#gallery-stats').innerHTML = `
       Right now <strong>${minted.toLocaleString()}</strong> ${trunks} been claimed.<br>
-      There are only <strong>${(21000 - minted).toLocaleString()}</strong> trunks remaining!<br>`
+      There are only <strong>${(210 - minted).toLocaleString()}</strong> trunks remaining!<br>`
   } catch (error) {
     console.log(error);
     document.querySelector('#gallery-stats').innerHTML = "";
@@ -55,7 +55,7 @@ async function viewMore() {
 
 async function getTrunk() {
   let number = document.querySelector('#gallery-trunk-number').value;
-  if (number >= 1 && number <= 21000) {
+  if (number >= 1 && number <= 210) {
     window.location.href = `individual-trunk-page.html?token=${number}`;
   } else {
     document.querySelector('#gallery-trunk-number').value = "";
