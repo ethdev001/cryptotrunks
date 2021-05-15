@@ -8,6 +8,15 @@ async function updateTotals() {
   let stats = `Right now <strong>${minted.toLocaleString()}</strong> genesis ${trunks} been claimed. There are only <strong>${(supply - minted).toLocaleString()}</strong> genesis trunks remaining!<br>`
 
   document.querySelector('#genesis-stats').innerHTML = stats;
+
+  // Disable button
+  if (minted >= supply) {
+    document.querySelector('#genesis-buy').href = "#";
+    document.querySelector('#genesis-buy').style["background-image"] = "url('../images/button_mask.svg'), url('../images/button_background_disabled.svg')";
+    document.querySelector('#genesis-buy-text').innerHTML = "GENESIS SOLD OUT";
+    document.querySelector('#genesis-buy-text').style["font-size"] = "22px";
+    document.querySelector('#genesis-ape').style["display"] = "none";
+  }
 }
 
 async function ape() {
