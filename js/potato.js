@@ -10,8 +10,6 @@ async function withdrawLink() {
 }
 
 async function fetchGenesisSeedFromVRF() {
-  // await contract.methods.fetchGenesisSeedFromVRF().send({ from: wallet });
-  // await contract.methods.fetchGenesisSeedFromVRF().call();
   contract.methods.fetchGenesisSeedFromVRF().send({ from: wallet });
 }
 
@@ -34,8 +32,15 @@ async function fetchGenerativeFee() {
   console.log("Calculated fee: " + result.result + " eth");
 }
 
-async function mintGenerativeTrunk() {
-  let feeStr = "0.002";
+async function mintFreeGenerativeTrunk() {
+  await mintGenerativeTrunk("0");
+}
+
+async function mintBaseGenerativeTrunk() {
+  await mintGenerativeTrunk("0.05");
+}
+
+async function mintGenerativeTrunk(feeStr) {
   let fee = web3.utils.toWei(feeStr);
   console.log("Mint fee: " + feeStr + " eth");
 
@@ -55,7 +60,7 @@ async function mintGenerativeTrunk() {
   });
 
   // Minting.
-  let mint = await contract.methods.mintTrunk(1)
+  let mint = await contract.methods.mintTrunk(1, false) // Fixed "random" seed
     .send({ from: wallet, value: fee })
     .catch(error => {
       console.log("Mint error: " + error.message);
@@ -114,6 +119,28 @@ async function unpause() {
   await contract.methods.unpause().send({ from: wallet });
 }
 
+async function getOracle() {
+  let oracle = await contract.methods.getOracle().call();
+  console.log("Oracle address: " + oracle[0]);
+  console.log("Job ID: " + oracle[1]);
+  console.log("Fee: " + oracle[2]);
+  document.oracle = oracle;
+}
+
+async function updateOracle() {
+  await contract.methods.updateOracle(
+    '0xAA1DC356dc4B18f30C347798FD5379F3D77ABC5b',
+    "0xc7dd72ca14b44f0c9b6cfcd4b7ec0a2c",
+    String(0.1 * 10 ** 18)
+  )
+    .send({ from: wallet })
+    .catch(error => {
+      console.log("Oracle update error: " + error.message);
+      document.merror = error;
+    });
+    console.log("Done");
+}
+
 function start() {
   document.querySelector('#etherscan').href = `https://kovan.etherscan.io/address/${address}`
 }
@@ -141,9 +168,12 @@ document.querySelector('#getGenesisSupply').addEventListener('click', getGenesis
 
 // Generative
 document.querySelector('#getGenerativeSupply').addEventListener('click', getGenerativeSupply);
-document.querySelector('#mintGenerativeTrunk').addEventListener('click', mintGenerativeTrunk);
+document.querySelector('#mintFreeGenerativeTrunk').addEventListener('click', mintFreeGenerativeTrunk);
+document.querySelector('#mintBaseGenerativeTrunk').addEventListener('click', mintBaseGenerativeTrunk);
 document.querySelector('#fetchGenerativeFee').addEventListener('click', fetchGenerativeFee);
 
 // Utils
 document.querySelector('#readTokenBalance').addEventListener('click', readTokenBalance);
 document.querySelector('#readTokens').addEventListener('click', readTokens);
+document.querySelector('#getOracle').addEventListener('click', getOracle);
+document.querySelector('#updateOracle').addEventListener('click', updateOracle);

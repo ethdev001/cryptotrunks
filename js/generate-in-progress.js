@@ -26,7 +26,7 @@ async function getBaseFeeTier() {
 
   // Base case (first mint).
   if (count == 0) {
-    return "0.002";
+    return "0";
   }
 
   // Multiplier.
@@ -63,7 +63,7 @@ async function generateTrunk() {
   let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${currentSeed}`
   let result = await (await fetch(url)).json();
 
-  isBasic = (result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
+  isBasic = false//(result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
 
   document.querySelector('#generate-info').innerHTML = formattedResult(result);
   document.querySelector('#generate-trunk-image').src = result.image;
@@ -72,7 +72,7 @@ async function generateTrunk() {
   document.querySelector('#generate-done').style = "display:block";
 
   baseFee = await getBaseFeeTier();
-  isPaused = (await contract.methods.paused().call()) && (baseFee == "0.002");
+  isPaused = (await contract.methods.paused().call()) && (baseFee == "0");
   if (isPaused) {
     document.querySelector('#generate-paused').style = "display:block";
     disableButton("PAUSED");
