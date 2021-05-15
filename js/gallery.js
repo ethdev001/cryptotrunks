@@ -19,7 +19,7 @@ async function updateTokenSupply() {
       Right now <strong>${minted.toLocaleString()}</strong> ${trunks} been claimed.<br>
       There are only <strong>${(210 - minted).toLocaleString()}</strong> trunks remaining!<br><br>
       Genesis trunks are not currently shown and will be added after they have sold out.
-      Not all trunks are currently displayed. We’re working on it!`
+      Not all trunks are currently displayed. We're working on it!`
   } catch (error) {
     console.log(error);
     document.querySelector('#gallery-stats').innerHTML = "";

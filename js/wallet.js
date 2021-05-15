@@ -16,7 +16,7 @@ async function loadWalletTrunks() {
       document.querySelector('#token-count').innerHTML = `You own <strong id="token-count">${tokens}</strong> ${trunks}.<br>`;
     });
   } catch (error) {
-    document.querySelector('#token-count').innerHTML = "Couldn’t load trunks.<br>";
+    document.querySelector('#token-count').innerHTML = "Couldn't load trunks.<br>";
   }
 
   var grid = "";
