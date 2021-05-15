@@ -63,7 +63,8 @@ async function generateTrunk() {
   let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${currentSeed}`
   let result = await (await fetch(url)).json();
 
-  isBasic = false//(result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
+  // TODO: Enable to save Link!
+  isBasic = false;//(result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
 
   document.querySelector('#generate-info').innerHTML = formattedResult(result);
   document.querySelector('#generate-trunk-image').src = result.image;
