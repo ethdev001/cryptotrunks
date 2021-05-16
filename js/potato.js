@@ -142,7 +142,7 @@ async function updateOracle() {
 }
 
 function start() {
-  document.querySelector('#etherscan').href = `https://kovan.etherscan.io/address/${address}`
+  document.querySelector('#etherscan').href = `https://etherscan.io/address/${address}`
 }
 
 document.onload = start();
