@@ -28,7 +28,7 @@ export async function connectMetaMask() {
 }
 
 export function formattedResult(result) {
-  if (result.number <= 15) {
+  if (result.number <= 1500) {
     return '<strong class="green">[Genesis]</strong>';
   } else {
     var formatted = ""
