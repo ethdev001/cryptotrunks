@@ -48,7 +48,7 @@ async function loadWalletTrunks() {
   }
   document.querySelector('#wallet-grid').innerHTML = grid;
 
-  document.querySelector('#wallet-opensea').href = `https://opensea.io/accounts/${wallet}/CryptoTrunks`;
+  document.querySelector('#wallet-opensea').href = `https://opensea.io/accounts/${wallet}/cryptotrunks`;
 }
 
 document.onload = start();
