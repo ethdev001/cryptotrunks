@@ -64,7 +64,7 @@ async function generateTrunk() {
   let result = await (await fetch(url)).json();
 
   // TODO: Enable to save Link!
-  isBasic = false;//(result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
+  isBasic = (result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
 
   document.querySelector('#generate-info').innerHTML = formattedResult(result);
   document.querySelector('#generate-trunk-image').src = result.image;
