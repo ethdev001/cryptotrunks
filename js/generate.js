@@ -25,18 +25,18 @@ async function fetchCarbonStats() {
 
   var gas_string = "you've spent little to no gas. Good on you!";
   var tree = "Your trunk will be a <strong>sapling</strong>";
-  if (gas > 1e6) {
-    gas_string = "you've spent a reasonable amount of gas. You might be spared.";
-    tree = "Your trunk will be <strong>young</strong>";
-  } else if (gas > 1e7) {
-    gas_string = "you've spent a lot of gas. Why would you do that?";
-    tree = "Your trunk will be an <strong>adult</strong>";
+  if (gas > 1e9) {
+    gas_string = "you've spent an outstanding amount of gas. You must really hate bears.";
+    tree = "Your trunk will be <strong>ancient</strong>";
   } else if (gas > 1e8) {
     gas_string = "you've spent a huge amount of gas. I hope you're happy.";
     tree = "Your trunk will be an <strong>elder</strong>";
-  } else if (gas > 1e9) {
-    gas_string = "you've spent an outstanding amount of gas. You must really hate bears.";
-    tree = "Your trunk will be <strong>ancient</strong>";
+  } else if (gas > 1e7) {
+    gas_string = "you've spent a lot of gas. Why would you do that?";
+    tree = "Your trunk will be an <strong>adult</strong>";
+  } else if (gas > 1e6) {
+    gas_string = "you've spent a reasonable amount of gas. You might be spared.";
+    tree = "Your trunk will be <strong>young</strong>";
   }
 
   let carbon_html = `
