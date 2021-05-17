@@ -37,7 +37,7 @@ async function getMoreTrunks() {
     let metadata = result[i];
     if (metadata.error == undefined) {
       grid = grid.concat(`
-        <a href="individual-trunk-page.html?token=${metadata.id}" class="gallery_item w-inline-block">
+        <a href="individual-trunk-page?token=${metadata.id}" class="gallery_item w-inline-block">
           <div class="gallery_item_number">#${metadata.number}</div>
           <img src="${metadata.image}" loading="lazy" alt="Image of a pixel art tree on a forested background." class="gallery_item_image">
         </a>`);

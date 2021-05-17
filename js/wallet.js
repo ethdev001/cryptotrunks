@@ -22,7 +22,7 @@ async function loadWalletTrunks() {
   var grid = "";
   if (tokens == 0) {
     grid = `<div class="text_block">
-      <a href="generate-in-progress.html" class="button_two w-inline-block">
+      <a href="generate-in-progress" class="button_two w-inline-block">
         <div class="button_text">GET SOME TRUNKS</div>
       </a>
     </div>`;
@@ -35,7 +35,7 @@ async function loadWalletTrunks() {
 
       if (metadata.error == undefined) {
         grid = grid.concat(`
-          <a href="individual-trunk-page.html?token=${metadata.id}" class="gallery_item w-inline-block">
+          <a href="individual-trunk-page?token=${metadata.id}" class="gallery_item w-inline-block">
             <img src="${metadata.image}" loading="lazy" alt="Image of a pixel art tree on a forested background." class="wallet_item_image">
             <div class="text_block wallet_info" style="min-width: 0px">
               <div class="info_text big">TRUNK #${token}<br></div>
