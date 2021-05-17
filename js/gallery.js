@@ -20,7 +20,7 @@ async function updateTokenSupply() {
       There are only <strong>${(21000 - minted).toLocaleString()}</strong> trunks remaining!<br><br>
       Genesis trunks are not currently shown and will be added after they have sold out.
       Not all trunks are currently displayed. We're working on it!<br><br>
-      If the generative sale is still ongoing, searching for a trunk number that has not yet been minted may show a trunk that does not exist.`
+      If the generative sale is still ongoing, searching for a trunk number that has not yet been minted may show a trunk that does not exist.`.replaceAll("\u2028", "");
   } catch (error) {
     console.log(error);
     document.querySelector('#gallery-stats').innerHTML = "";

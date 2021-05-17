@@ -1,3 +1,4 @@
+import { address } from './contract.js';
 import { wallet, formattedResult } from './common.js';
 
 async function fetchTrunk() {
@@ -17,6 +18,7 @@ async function fetchTrunk() {
     document.querySelector('#individual-trunk-number').innerHTML = title;
     document.querySelector('#individual-trunk-info').innerHTML = formattedResult(result);
     document.querySelector('#individual-trunk-image').src = result.image;
+    document.querySelector('#opensea-link').href = `https://opensea.io/assets/${address}/${result.number}`;
   } else {
     document.querySelector('#individual-trunk-number').innerHTML = `TRUNK NOT FOUND`;
   }

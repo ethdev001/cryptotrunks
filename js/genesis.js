@@ -5,7 +5,7 @@ async function updateTotals() {
   let supply = 1500;
 
   let trunks = (minted == 1 ? "trunk has" : "trunks have");
-  let stats = `Right now <strong>${minted.toLocaleString()}</strong> genesis ${trunks} been claimed. There are only <strong>${(supply - minted).toLocaleString()}</strong> genesis trunks remaining!<br>`
+  let stats = `Right now <strong>${minted.toLocaleString()}</strong> genesis ${trunks} been claimed. There are only <strong>${(supply - minted).toLocaleString()}</strong> genesis trunks remaining!<br>`.replaceAll("\u2028", "");
 
   document.querySelector('#genesis-stats').innerHTML = stats;
 
