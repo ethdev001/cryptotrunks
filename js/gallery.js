@@ -58,7 +58,7 @@ async function viewMore() {
 
 async function getTrunk() {
   let number = document.querySelector('#gallery-trunk-number').value;
-  if (number >= 1 && number <= 21000) {
+  if (number >= 1501 && number <= 21000) {
     window.location.href = `individual-trunk-page.html?token=${number}`;
   } else {
     document.querySelector('#gallery-trunk-number').value = "";
