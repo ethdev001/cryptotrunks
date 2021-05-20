@@ -123,10 +123,7 @@ async function claimTrunk() {
   contract.events.RemoteMintFulfilled({}, function(error, result) {
     if (!error) {
       let resultId = result.returnValues.resultId;
-      console.log("Minted: " + resultId);
       window.location.href = `individual-trunk-page.html?token=${resultId}`;
-    } else {
-      console.log("Mint error: " + error.message);
     }
   });
 

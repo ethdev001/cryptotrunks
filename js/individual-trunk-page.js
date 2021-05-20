@@ -10,15 +10,18 @@ async function fetchTrunk() {
   let url = `https://service.cryptotrunks.co/token/${queryDict.token}`
   let result = await (await fetch(url)).json();
 
+  var number = result.number;
   if (result.error == undefined) {
     var title = "YOUR TRUNK";
-    if (result.number != undefined) {
+    if (number != undefined) {
       title = `TRUNK #${result.number}`;
+    } else {
+      number = queryDict.token;
     }
     document.querySelector('#individual-trunk-number').innerHTML = title;
     document.querySelector('#individual-trunk-info').innerHTML = formattedResult(result);
     document.querySelector('#individual-trunk-image').src = result.image;
-    document.querySelector('#opensea-link').href = `https://opensea.io/assets/${address}/${result.number}`;
+    document.querySelector('#opensea-link').href = `https://opensea.io/assets/${address}/${number}`;
   } else {
     document.querySelector('#individual-trunk-number').innerHTML = `TRUNK NOT FOUND`;
   }

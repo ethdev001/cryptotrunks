@@ -7,10 +7,7 @@ async function ape() {
   contract.events.RemoteMintTwentyFulfilled({}, function(error, result) {
     if (!error) {
       let resultId = result.returnValues.resultId;
-      console.log("Minted: " + resultId);
       window.location.href = `wallet.html`;
-    } else {
-      console.log("Mint error: " + error.message);
     }
   });
 

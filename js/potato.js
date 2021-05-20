@@ -129,9 +129,9 @@ async function getOracle() {
 
 async function updateOracle() {
   await contract.methods.updateOracle(
-    '0xAA1DC356dc4B18f30C347798FD5379F3D77ABC5b',
-    "0xc7dd72ca14b44f0c9b6cfcd4b7ec0a2c",
-    String(0.1 * 10 ** 18)
+    '0xC7d453B73c5Cda24dbb15943D4a47A8005339Be3',
+    "0x5c592c7039314fc1b303c9f95f70612e",
+    String(1)
   )
     .send({ from: wallet })
     .catch(error => {
