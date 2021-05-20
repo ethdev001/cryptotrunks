@@ -129,7 +129,7 @@ async function getOracle() {
 
 async function updateOracle() {
   await contract.methods.updateOracle(
-    '0xC7d453B73c5Cda24dbb15943D4a47A8005339Be3',
+    '0x5C034E3beDb7D06Bd102Fc483Cf017Bf9f90DA60',
     "0x5c592c7039314fc1b303c9f95f70612e",
     String(1)
   )

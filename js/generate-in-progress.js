@@ -52,7 +52,7 @@ async function generateTrunk() {
   try {
     await connectMetaMask();
   } catch (error) {
-    window.location.href = "generate.html";
+    window.location.href = "generate";
   }
 
   document.querySelector('#generate-in-progress').style = "display:block";
@@ -119,20 +119,15 @@ async function claimTrunk() {
     fee = web3.utils.toWei(String(result.result));
   }
 
-  // Listener.
-  contract.events.RemoteMintFulfilled({}, function(error, result) {
-    if (!error) {
-      let resultId = result.returnValues.resultId;
-      window.location.href = `individual-trunk-page.html?token=${resultId}`;
-    }
-  });
-
   // Minting.
   let mint = await contract.methods.mintTrunk(currentSeed, isBasic)
     .send({ from: wallet, value: fee })
     .then(function(result) {
       let trunk = result.events.Transfer.returnValues.tokenId;
       document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
+      setTimeout(function() {
+        window.location.href = `individual-trunk-page?token=${trunk}`;
+      }, 30000);
     })
     .catch(error => {
       enableButton();
