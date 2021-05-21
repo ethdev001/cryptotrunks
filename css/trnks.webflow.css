@@ -90,8 +90,16 @@ input[type=number] {
   text-decoration: none;
 }
 
+.gold_button {
+  background-image: url('../images/button_mask.svg'), url('../images/button_background_gold.svg') !important;
+}
+
 .button:hover {
   background-image: url('../images/button_mask.svg'), url('../images/button_background_hover.svg');
+}
+
+.gold_button:hover {
+  background-image: url('../images/button_mask.svg'), url('../images/button_background_gold_hover.svg') !important;
 }
 
 .image {
