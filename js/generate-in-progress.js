@@ -126,7 +126,11 @@ async function claimTrunk() {
       let trunk = result.events.Transfer.returnValues.tokenId;
       document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
       setTimeout(function() {
-        window.location.href = `individual-trunk-page?token=${trunk}`;
+        if (isBasic) {
+          window.location.href = `individual-trunk-page.html?token=${currentSeed}`;
+        } else {
+          window.location.href = `individual-trunk-page.html?token=${trunk}`;
+        }
       }, 30000);
     })
     .catch(error => {
