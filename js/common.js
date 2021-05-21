@@ -3,7 +3,7 @@ import { abi, address } from './contract.js';
 export let web3 = new Web3(ethereum);
 let accounts = await web3.eth.getAccounts();
 export let contract = new web3.eth.Contract(abi, address);
-export let wallet = ethereum.selectedAddress;
+export let wallet = ethereum.selectedAddress || accounts[0];
 
 const isMetaMaskConnected = async () => {
     let accounts = await web3.eth.getAccounts();
