@@ -119,19 +119,51 @@ async function claimTrunk() {
     fee = web3.utils.toWei(String(result.result));
   }
 
+  // Listener.
+  var transferBlockHash = "";
+  var chainlinkRequestId = "";
+  var trunk = undefined;
+
+  contract.events.allEvents({}, function(error, event) {
+    let eventName = event.event;
+
+    // Gate block hash on transfer matching sender address.
+    if (eventName == "Transfer" && event.returnValues.to.toLowerCase() == wallet.toLowerCase()) {
+      transferBlockHash = event.blockHash;
+      trunk = event.returnValues.tokenId;
+      document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
+    }
+
+    // Gate Chainlink id on block hash matching Transfer.
+    if (eventName == "ChainlinkRequested" && transferBlockHash.length > 0 && event.blockHash == transferBlockHash) {
+      chainlinkRequestId = event.returnValues.id;
+      document.querySelector('#loading-text').innerHTML = `CONNECTING TRUNK #${trunk} TO ORACLE...`;
+    }
+
+    // Gate Chainlink fulfill on matching Chainlink id.
+     if (eventName == "ChainlinkFulfilled" && chainlinkRequestId.length > 0 && event.returnValues.id == chainlinkRequestId) {
+      document.querySelector('#loading-text').innerHTML = `UPDATING TRUNK #${trunk} FROM ORACLE...`;
+    }
+
+    // Gate event request id on matching Chainlink id.
+    if (eventName == "RemoteMintFulfilled" && chainlinkRequestId.length > 0 && event.returnValues.requestId == chainlinkRequestId) {
+      let resultId = event.returnValues.resultId;
+      window.location.href = `individual-trunk-page?token=${resultId}`;
+    }
+
+    // Sapling mode.
+    if (eventName == "RemoteMintFulfilled" && transferBlockHash.length > 0 && event.blockHash == transferBlockHash) {
+      let resultId = event.returnValues.resultId;
+      window.location.href = `individual-trunk-page?token=${resultId}`;
+    }
+  });
+
   // Minting.
   let mint = await contract.methods.mintTrunk(currentSeed, isBasic)
     .send({ from: wallet, value: fee })
     .then(function(result) {
       let trunk = result.events.Transfer.returnValues.tokenId;
       document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
-      setTimeout(function() {
-        if (isBasic) {
-          window.location.href = `individual-trunk-page.html?token=${currentSeed}`;
-        } else {
-          window.location.href = `individual-trunk-page.html?token=${trunk}`;
-        }
-      }, 30000);
     })
     .catch(error => {
       enableButton();
