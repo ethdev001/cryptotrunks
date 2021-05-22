@@ -1,4 +1,4 @@
-import { web3, wallet, contract } from './common.js';
+import { web3, contract } from './common.js';
 
 async function ape() {
   document.querySelector('#loading-text').innerHTML = "CONNECTING...";
