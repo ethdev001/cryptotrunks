@@ -162,7 +162,7 @@ async function claimTrunk() {
     // Sapling mode.
     if (eventName == "RemoteMintFulfilled" && transferBlockHash.length > 0 && event.blockHash == transferBlockHash) {
       let resultId = event.returnValues.resultId;
-      window.location.href = `individual-trunk-page?token=${resultId}`;
+      window.location.href = `individual-trunk-page?token=${trunk}`;
     }
   });
 
