@@ -1,5 +1,5 @@
 import { address } from './contract.js';
-import { formattedResult } from './common.js';
+import { web3, formattedResult } from './common.js';
 
 async function fetchTrunk() {
   var queryDict = {};
