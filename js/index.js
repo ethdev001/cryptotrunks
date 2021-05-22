@@ -1,4 +1,4 @@
-import { contract, wallet } from './common.js';
+import { contract } from './common.js';
 
 async function updateProgress() {
   // Generative progress

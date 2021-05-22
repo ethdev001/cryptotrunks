@@ -1,4 +1,4 @@
-import { connectMetaMask, contract, wallet, formattedResult } from './common.js';
+import { web3, connectMetaMask, contract, formattedResult } from './common.js';
 
 function start() {
   connectMetaMask();
@@ -7,6 +7,8 @@ function start() {
 
 async function loadWalletTrunks() {
   var tokens = 0;
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
 
   try {
     await contract.methods.balanceOf(wallet).call()

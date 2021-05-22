@@ -1,4 +1,4 @@
-import { web3, wallet, contract } from './common.js';
+import { web3, contract } from './common.js';
 
 async function claimGenesisTrunk() {
   document.querySelector('#loading-text').innerHTML = "CONNECTING...";
@@ -20,6 +20,8 @@ async function claimGenesisTrunk() {
     return;
   }
 
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
   let fee = web3.utils.toWei(String(numberToMint * 0.5));
   let mint = await contract.methods.mintGenesisTrunk(numberToMint)
     .send({ from: wallet, value: fee })

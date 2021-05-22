@@ -1,4 +1,4 @@
-import { web3, wallet, contract, formattedResult, connectMetaMask } from './common.js';
+import { web3, contract, formattedResult, connectMetaMask } from './common.js';
 
 var currentSeed;
 var tokenId;
@@ -22,6 +22,8 @@ function regenerateRandomInt() {
 }
 
 async function getBaseFeeTier() {
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
   let count = await contract.methods.balanceOf(wallet).call()
 
   // Base case (first mint).
@@ -60,6 +62,8 @@ async function generateTrunk() {
 
   regenerateRandomInt();
 
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
   let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${currentSeed}`
   let result = await (await fetch(url)).json();
 
@@ -102,6 +106,10 @@ async function claimTrunk() {
   if (isPaused) {
     return false;
   }
+
+  // Wallet
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
 
   // Disable button
   disableButton("CONNECTING...");

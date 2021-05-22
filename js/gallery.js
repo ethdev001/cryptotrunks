@@ -1,4 +1,4 @@
-import { contract, wallet } from './common.js';
+import { contract } from './common.js';
 
 var grid = "";
 var offset = 1500;
@@ -22,7 +22,6 @@ async function updateTokenSupply() {
       Not all trunks are currently displayed. We're working on it!<br><br>
       If the generative sale is still ongoing, searching for a trunk number that has not yet been minted may show a trunk that does not exist.`.replaceAll("\u2028", "");
   } catch (error) {
-    console.log(error);
     document.querySelector('#gallery-stats').innerHTML = "";
   }
 

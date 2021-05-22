@@ -1,5 +1,8 @@
 import { address } from './contract.js';
-import { web3, wallet, contract } from './common.js';
+import { web3, contract } from './common.js';
+
+let accounts = await web3.eth.getAccounts();
+let wallet = ethereum.selectedAddress || accounts[0];
 
 async function withdraw() {
   await contract.methods.withdraw().send({ from: wallet });
@@ -142,7 +145,7 @@ async function updateOracle() {
 }
 
 async function generateQuery() {
-  for (let i = 1566; i < 21000; i++) {
+  for (let i = 1608; i < 21000; i++) {
     let url = `https://service.cryptotrunks.co/token/${i}`
     let result = (await (await fetch(url)).json());
     if (result.name == "CryptoTrunk") {

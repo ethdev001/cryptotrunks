@@ -1,4 +1,4 @@
-import { connectMetaMask, wallet } from './common.js';
+import { web3, connectMetaMask } from './common.js';
 
 async function start() {
   try {
@@ -11,6 +11,8 @@ async function start() {
 }
 
 async function fetchCarbonStats() {
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
   let co2_per_wei = 0.0002874;
   let co2_absorbed_per_year = 21;
   let url = `https://service.cryptotrunks.co/carbon.json?address=${wallet}`

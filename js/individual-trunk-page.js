@@ -1,5 +1,5 @@
 import { address } from './contract.js';
-import { wallet, formattedResult } from './common.js';
+import { formattedResult } from './common.js';
 
 async function fetchTrunk() {
   var queryDict = {};

@@ -11,6 +11,8 @@ async function ape() {
     }
   });
 
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
   let fee = web3.utils.toWei("1");
   let mint = await contract.methods.mintTwentyTrunks()
     .send({ from: wallet, value: fee })
