@@ -156,13 +156,13 @@ async function claimTrunk() {
     // Gate event request id on matching Chainlink id.
     if (eventName == "RemoteMintFulfilled" && chainlinkRequestId.length > 0 && event.returnValues.requestId == chainlinkRequestId) {
       let resultId = event.returnValues.resultId;
-      window.location.href = `individual-trunk-page?token=${resultId}`;
+      window.location.href = `individual-trunk-page?token=${trunk}`;
     }
 
     // Sapling mode.
     if (eventName == "RemoteMintFulfilled" && transferBlockHash.length > 0 && event.blockHash == transferBlockHash) {
       let resultId = event.returnValues.resultId;
-      window.location.href = `individual-trunk-page?token=${trunk}`;
+      window.location.href = `individual-trunk-page?token=${currentSeed}`;
     }
   });
 
