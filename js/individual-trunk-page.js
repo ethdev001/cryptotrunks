@@ -10,6 +10,9 @@ async function fetchTrunk() {
   let url = `https://service.cryptotrunks.co/token/${queryDict.token}`
   let result = await (await fetch(url)).json();
 
+  let accounts = await web3.eth.getAccounts();
+  let wallet = ethereum.selectedAddress || accounts[0];
+
   var number = result.number;
   if (result.error == undefined) {
     var title = "YOUR TRUNK";
@@ -21,7 +24,7 @@ async function fetchTrunk() {
     document.querySelector('#individual-trunk-number').innerHTML = title;
     document.querySelector('#individual-trunk-info').innerHTML = formattedResult(result);
     document.querySelector('#individual-trunk-image').src = result.image;
-    document.querySelector('#opensea-link').href = `https://opensea.io/assets/${address}/${number}`;
+    document.querySelector('#opensea-link').href = `https://opensea.io/accounts/${wallet}/cryptotrunks`;
   } else {
     document.querySelector('#individual-trunk-number').innerHTML = `TRUNK NOT FOUND`;
   }
