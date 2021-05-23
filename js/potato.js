@@ -115,11 +115,7 @@ async function getPauseStatus() {
 }
 
 async function pause() {
-  await contract.methods.pause().send({ from: wallet });
-}
-
-async function unpause() {
-  await contract.methods.unpause().send({ from: wallet });
+  await contract.methods.togglePaused().send({ from: wallet });
 }
 
 async function getOracle() {
@@ -175,7 +171,6 @@ document.querySelector('#withdrawLink').addEventListener('click', withdrawLink);
 
 // Pausing.
 document.querySelector('#pause').addEventListener('click', pause);
-document.querySelector('#unpause').addEventListener('click', unpause);
 document.querySelector('#getPauseStatus').addEventListener('click', getPauseStatus);
 
 // Genesis
