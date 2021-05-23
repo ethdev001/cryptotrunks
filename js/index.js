@@ -33,6 +33,15 @@ async function updateProgress() {
   }
 }
 
+async function toGenesis() {
+  let number = parseInt(document.querySelector('#genesis-ape-number').value);
+  if (number != NaN && number >= 1 && number <= 20) {
+    ape();
+  } else {
+    window.location.href = "genesis-in-progress.html";
+  }
+}
+
 async function ape() {
   let number = document.querySelector('#genesis-ape-number').value;
   if (number >= 1 && number <= 20) {
@@ -43,4 +52,5 @@ async function ape() {
 }
 
 document.onload = updateProgress();
+document.querySelector('#genesis-buy').addEventListener('click', toGenesis);
 document.querySelector('#genesis-ape').addEventListener('click', ape);
