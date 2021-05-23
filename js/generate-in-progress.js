@@ -5,7 +5,6 @@ var tokenId;
 var baseFee;
 
 var isLoading = false;
-var isBasic = false;
 var isPaused = false;
 
 var generateButtonBackground;
@@ -67,9 +66,6 @@ async function generateTrunk() {
   let url = `https://service.cryptotrunks.co/metadata.json?address=${wallet}&seed=${currentSeed}`
   let result = await (await fetch(url)).json();
 
-  // TODO: Enable to save Link!
-  isBasic = (result.tree.includes("Sapling") && result.backgrounds.includes("Noon"));
-
   document.querySelector('#generate-info').innerHTML = formattedResult(result);
   document.querySelector('#generate-trunk-image').src = result.image;
 
@@ -113,19 +109,14 @@ async function claimTrunk() {
 
   // Disable button
   disableButton("CONNECTING...");
-  document.querySelector('#loading-text').innerHTML = "CONNECTING...";
+  document.querySelector('#loading-text').innerHTML = "TRANSACTING WITH CRYPTOTRUNKS CONTRACT...";
   document.querySelector('#loading-modal').style = "display:flex";
   isLoading = true;
 
   // Fetch fee (enforced by contract).
-  var fee = 0;
-  if (isBasic) {
-    fee = web3.utils.toWei(baseFee);
-  } else {
-    let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
-    let result = await (await fetch(url)).json();
-    fee = web3.utils.toWei(String(result.result));
-  }
+  let url = `https://service.cryptotrunks.co/fee.json?address=${wallet}`
+  let result = await (await fetch(url)).json();
+  let fee = web3.utils.toWei(String(result.result));
 
   // Listener.
   var transferBlockHash = "";
@@ -167,7 +158,7 @@ async function claimTrunk() {
   });
 
   // Minting.
-  let mint = await contract.methods.mintTrunk(currentSeed, isBasic)
+  let mint = await contract.methods.mintTrunk(currentSeed, false)
     .send({ from: wallet, value: fee })
     .then(function(result) {
       let trunk = result.events.Transfer.returnValues.tokenId;

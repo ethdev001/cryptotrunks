@@ -1,7 +1,7 @@
 import { web3, contract } from './common.js';
 
 async function claimGenesisTrunk() {
-  document.querySelector('#loading-text').innerHTML = "CONNECTING...";
+  document.querySelector('#loading-text').innerHTML = "TRANSACTING WITH CRYPTOTRUNKS CONTRACT...";
   document.querySelector('#loading-modal').style = "display:flex";
 
   var queryDict = {};
