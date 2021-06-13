@@ -1,7 +1,9 @@
 import { abi, address } from './contract.js';
+import { reforestation_abi, reforestation_address } from './reforestation.js';
 
 export let web3 = new Web3(ethereum);
 export let contract = new web3.eth.Contract(abi, address);
+export let reforestation = new web3.eth.Contract(reforestation_abi, reforestation_address);
 
 const isMetaMaskConnected = async () => {
     let accounts = await web3.eth.getAccounts();
