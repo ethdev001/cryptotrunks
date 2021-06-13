@@ -30,6 +30,10 @@ export async function connectMetaMask() {
 export function formattedResult(result) {
   if (result.number <= 1500) {
     return '<strong class="green">[Genesis]</strong>';
+  } else if (result.number >= 14149 && result.number <= 21000 && result.number != 20750 && result.number != 20999) {
+    return '<strong class="green">[Deforestation]</strong>';
+  } else if (isNaN(result.number)) {
+    return '';
   } else {
     var formatted = ""
     result.elements.forEach(element => formatted = formatted.concat(`+ ${element}<br>`));
