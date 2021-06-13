@@ -1,11 +1,15 @@
 import { address } from './contract.js';
-import { web3, contract } from './common.js';
+import { web3, contract, reforestation } from './common.js';
 
 let accounts = await web3.eth.getAccounts();
 let wallet = ethereum.selectedAddress || accounts[0];
 
 async function withdraw() {
   await contract.methods.withdraw().send({ from: wallet });
+}
+
+async function withdrawReforestation() {
+  await reforestation.methods.withdraw().send({ from: wallet });
 }
 
 async function withdrawLink() {
@@ -110,12 +114,12 @@ async function readTokens() {
 }
 
 async function getPauseStatus() {
-  let status = await contract.methods.paused().call();
+  let status = await reforestation.methods.paused().call();
   console.log("Paused: " + status);
 }
 
 async function pause() {
-  await contract.methods.togglePaused().send({ from: wallet });
+  await reforestation.methods.togglePaused().send({ from: wallet });
 }
 
 async function getOracle() {
@@ -140,22 +144,6 @@ async function updateOracle() {
     console.log("Done");
 }
 
-async function generateQuery() {
-  for (let i = 1608; i < 21000; i++) {
-    let url = `https://service.cryptotrunks.co/token/${i}`
-    let result = (await (await fetch(url)).json());
-    if (result.name == "CryptoTrunk") {
-      let owner = await contract.methods.ownerOf(i).call();
-      let uri = await contract.methods.tokenURI(i).call();
-      let tokenId = uri.split("/")[4];
-      let query = `INSERT INTO tokens (address, oldest_timestamp, total_count, total_gas, returned_token_id, original_token_id, user_random_seed, include_in_fee_tier) VALUES ('${owner}', 1620000000, 0, 0, ${tokenId}, ${i}, ${tokenId}, false);`
-      console.log(query);
-    } else {
-      console.log(result.name);
-    }
-  }
-}
-
 function start() {
   document.querySelector('#etherscan').href = `https://etherscan.io/address/${address}`
 }
@@ -168,6 +156,7 @@ document.querySelector('#connect').addEventListener('click', connect);
 // Withdraw
 document.querySelector('#withdraw').addEventListener('click', withdraw);
 document.querySelector('#withdrawLink').addEventListener('click', withdrawLink);
+document.querySelector('#withdrawReforestation').addEventListener('click', withdrawReforestation);
 
 // Pausing.
 document.querySelector('#pause').addEventListener('click', pause);
@@ -191,4 +180,3 @@ document.querySelector('#readTokenBalance').addEventListener('click', readTokenB
 document.querySelector('#readTokens').addEventListener('click', readTokens);
 document.querySelector('#getOracle').addEventListener('click', getOracle);
 document.querySelector('#updateOracle').addEventListener('click', updateOracle);
-document.querySelector('#generateQuery').addEventListener('click', generateQuery);
