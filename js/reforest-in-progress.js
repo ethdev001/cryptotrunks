@@ -136,7 +136,7 @@ async function claimTrunk() {
     // Gate block hash on transfer matching sender address.
     if (eventName == "Transfer" && event.returnValues.to.toLowerCase() == wallet.toLowerCase()) {
       transferBlockHash = event.blockHash;
-      trunk = event.returnValues.tokenId + 21000;
+      trunk = parseInt(event.returnValues.tokenId) + 21000;
       document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
     }
 
