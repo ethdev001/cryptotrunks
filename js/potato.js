@@ -123,15 +123,22 @@ async function pause() {
 }
 
 async function getOracle() {
-  let oracle = await contract.methods.getOracle().call();
+  var oracle = await contract.methods.getOracle().call();
+  console.log("Main contract:");
   console.log("Oracle address: " + oracle[0]);
   console.log("Job ID: " + oracle[1]);
   console.log("Fee: " + oracle[2]);
-  document.oracle = oracle;
+
+  oracle = await reforestation.methods.getOracle().call();
+  console.log("Reforestation contract:");
+  console.log("Oracle address: " + oracle[0]);
+  console.log("Job ID: " + oracle[1]);
+  console.log("Fee: " + oracle[2]);
+
 }
 
 async function updateOracle() {
-  await contract.methods.updateOracle(
+  await reforestation.methods.updateOracle(
     '0x5C034E3beDb7D06Bd102Fc483Cf017Bf9f90DA60',
     "0x5c592c7039314fc1b303c9f95f70612e",
     String(1)

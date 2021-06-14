@@ -1,9 +1,9 @@
-import { contract } from './common.js';
+import { contract, reforestation } from './common.js';
 
 async function updateProgress() {
   // Generative progress
-  var supply = 19500;
-  var minted = parseInt(await contract.methods.getGenerativeMinted().call());
+  var supply = 19500 + 2500;
+  var minted = 19500 + parseInt(await reforestation.methods.getGenerativeMinted().call());
   let generative = minted.toLocaleString().concat(" / ").concat(supply.toLocaleString());
   document.querySelector('#progress-generative').innerHTML = generative.concat(" CLAIMED");
   var progress = parseInt((parseFloat(minted) / parseFloat(supply)) * 100);
