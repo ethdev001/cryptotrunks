@@ -162,7 +162,7 @@ async function claimTrunk() {
   let mint = await reforestation.methods.mintTrunk(currentSeed)
     .send({ from: wallet, value: fee })
     .then(function(result) {
-      let trunk = result.events.Transfer.returnValues.tokenId;
+      let trunk = parseInt(result.events.Transfer.returnValues.tokenId) = 21000;
       document.querySelector('#loading-text').innerHTML = `GROWING TRUNK #${trunk}...`;
     })
     .catch(error => {
