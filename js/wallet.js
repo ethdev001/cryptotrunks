@@ -38,8 +38,9 @@ async function loadWalletTrunks() {
         token = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
         uri = await contract.methods.tokenURI(token).call();
       } else {
-        token = await reforestation.methods.tokenOfOwnerByIndex(wallet, i - contract_tokens).call();
-        uri = await contract.methods.tokenURI(token).call();
+        token = parseInt(await reforestation.methods.tokenOfOwnerByIndex(wallet, i - contract_tokens).call());
+        uri = await reforestation.methods.tokenURI(token).call();
+        token += 21000;
       }
       let metadata = await (await fetch(uri)).json();
 

@@ -151,6 +151,16 @@ async function updateOracle() {
     console.log("Done");
 }
 
+async function updateBaseURI() {
+  await reforestation.methods.setBaseURI("https://service.cryptotrunks.co/token_reforest/")
+  .send({ from: wallet })
+  .catch(error => {
+    console.log("Base URI update error: " + error.message);
+    document.merror = error;
+  });
+  console.log("Done");
+}
+
 function start() {
   document.querySelector('#etherscan').href = `https://etherscan.io/address/${address}`
 }
@@ -187,3 +197,4 @@ document.querySelector('#readTokenBalance').addEventListener('click', readTokenB
 document.querySelector('#readTokens').addEventListener('click', readTokens);
 document.querySelector('#getOracle').addEventListener('click', getOracle);
 document.querySelector('#updateOracle').addEventListener('click', updateOracle);
+document.querySelector('#updateBaseURI').addEventListener('click', updateBaseURI);
