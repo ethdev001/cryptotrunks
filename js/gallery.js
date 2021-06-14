@@ -1,4 +1,4 @@
-import { contract } from './common.js';
+import { contract, reforestation } from './common.js';
 
 var grid = "";
 var offset = 1500;
@@ -12,7 +12,8 @@ async function updateTokenSupply() {
   try {
     let generative = parseInt(await contract.methods.getGenerativeMinted().call());
     let genesis = parseInt(await contract.methods.getGenesisMinted().call());
-    let minted = generative + genesis;
+    let reforested = parseInt(await reforestation.methods.getGenerativeMinted().call());
+    let minted = generative + genesis + reforested;
     let trunks = (minted == 1 ? "trunk has" : "trunks have");
 
     document.querySelector('#gallery-stats').innerHTML = `
