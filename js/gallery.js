@@ -18,7 +18,7 @@ async function updateTokenSupply() {
 
     document.querySelector('#gallery-stats').innerHTML = `
       Right now <strong>${minted.toLocaleString()}</strong> ${trunks} been claimed.<br>
-      There are only <strong>${(21000 - minted).toLocaleString()}</strong> trunks remaining!<br><br>
+      There are only <strong>${(23500 - minted).toLocaleString()}</strong> trunks remaining!<br><br>
       Genesis trunks are not currently shown and will be added after they have sold out.
       Not all trunks are currently displayed. We're working on it!<br><br>
       If the generative sale is still ongoing, searching for a trunk number that has not yet been minted may show a trunk that does not exist.`.replaceAll("\u2028", "");
@@ -58,7 +58,7 @@ async function viewMore() {
 
 async function getTrunk() {
   let number = document.querySelector('#gallery-trunk-number').value;
-  if (number >= 1501 && number <= 21000) {
+  if (number >= 1501 && number <= 23500) {
     window.location.href = `individual-trunk-page.html?token=${number}`;
   } else {
     document.querySelector('#gallery-trunk-number').value = "";
