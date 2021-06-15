@@ -73,11 +73,6 @@ async function generateTrunk() {
   document.querySelector('#generate-done').style = "display:block";
 
   baseFee = await getBaseFeeTier();
-  isPaused = (await contract.methods.paused().call()) && (baseFee == "0");
-  if (isPaused) {
-    document.querySelector('#generate-paused').style = "display:block";
-    disableButton("PAUSED");
-  }
 }
 
 function disableButton(title) {
