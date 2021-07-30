@@ -114,6 +114,13 @@ async function claimTrunk() {
   let accounts = await web3.eth.getAccounts();
   let wallet = ethereum.selectedAddress || accounts[0];
 
+  // Network
+  let network = await web3.eth.net.getId()
+  if (network != 1) {
+    alert("Hey! CryptoTrunks are only supported on the Ethereum network. It looks like you’re connected to a different network. Please check your settings and try again.");
+    return;
+  }
+
   // Disable button
   disableButton("CONNECTING...");
   document.querySelector('#loading-text').innerHTML = "TRANSACTING WITH CRYPTOTRUNKS CONTRACT...";
