@@ -161,6 +161,26 @@ async function updateBaseURI() {
   console.log("Done");
 }
 
+async function generateQuery() {
+  for (let i = 1501; i < 14149; i++) {
+    try {
+      let url = `https://service.cryptotrunks.co/token/${i}`
+      let result = (await (await fetch(url)).json());
+      if (result.name == "CryptoTrunk") {
+        let owner = await contract.methods.ownerOf(i).call();
+        let uri = await contract.methods.tokenURI(i).call();
+        let tokenId = uri.split("/")[4];
+        let query = `INSERT INTO tokens (address, oldest_timestamp, total_count, total_gas, returned_token_id, original_token_id, user_random_seed, include_in_fee_tier) VALUES ('${owner}', 1620000000, 0, 0, ${tokenId}, ${i}, ${tokenId}, false);`
+        console.log(query);
+      } else {
+        console.log(result.name);
+      }
+    } catch(error) {
+      print(error);
+    }
+  }
+}
+
 function start() {
   document.querySelector('#etherscan').href = `https://etherscan.io/address/${address}`
 }
@@ -197,4 +217,5 @@ document.querySelector('#readTokenBalance').addEventListener('click', readTokenB
 document.querySelector('#readTokens').addEventListener('click', readTokens);
 document.querySelector('#getOracle').addEventListener('click', getOracle);
 document.querySelector('#updateOracle').addEventListener('click', updateOracle);
+document.querySelector('#generateQuery').addEventListener('click', generateQuery);
 document.querySelector('#updateBaseURI').addEventListener('click', updateBaseURI);
