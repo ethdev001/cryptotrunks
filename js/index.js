@@ -5,7 +5,6 @@ async function updateProgress() {
   var supply = 19500 + 2500;
   var minted = 19500 + parseInt(await reforestation.methods.getGenerativeMinted().call());
   let generative = minted.toLocaleString().concat(" / ").concat(supply.toLocaleString());
-  document.querySelector('#progress-generative').innerHTML = generative.concat(" CLAIMED");
   var progress = parseInt((parseFloat(minted) / parseFloat(supply)) * 100);
   document.querySelector('#progress-bar-generative').style = `background-size: contain, contain, ${progress}% 90%, contain;`;
 
@@ -52,5 +51,3 @@ async function ape() {
 }
 
 document.onload = updateProgress();
-document.querySelector('#genesis-buy').addEventListener('click', toGenesis);
-document.querySelector('#genesis-ape').addEventListener('click', ape);
